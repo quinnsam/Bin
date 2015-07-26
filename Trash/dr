@@ -1,0 +1,59 @@
+#!/bin/bash
+verb=''
+perm=0
+recursive=''
+force='i'
+files=()
+
+# Prints the usage
+usage () {
+    echo "$0 [pvhrf]"
+    echo "      -p  Permanatly deletes file"
+    echo "      -v  Verbose output"
+    echo "      -r  Recusivly remove files"
+    echo "      -f  Force remove files"
+    echo "      -h  Print usage"
+}
+
+# Get command line options
+while getopts pvhrf option
+do
+    case "${option}"
+    in
+        p) perm=1;;
+        v) verb=v;;
+        r) recursive=r;;
+        f) force=f;;
+        h) usage;;
+        *) usage;;
+    esac
+done
+
+# Create trash directory of it doesn't already exist
+if ! [[ -d ~/.Trash ]]
+then
+    mkdir ~/.Trash
+fi
+
+shift $(($OPTIND -1))
+
+for DEL in "$@"
+do 
+    if [ $perm -eq 1 ]
+    then
+        if [[ "$verb" == 'v'  || "$force" == 'f' || "$recursive" == 'r' ]]
+        then
+            rm -"$verb$recursive$force" "$DEL"
+        else
+            rm "$DEL"
+        fi
+    else
+        mv "$DEL" ~/.Trash/"${DEL##*/}"
+        if [ "$verb" == 'v' ]
+        then
+            echo "Deleting: $DEL"
+        fi
+    fi
+done
+
+
