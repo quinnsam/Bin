@@ -6,17 +6,22 @@ if [ ! -d $HOME/bin ]; then
 fi
 
 ################################################################################
-                                Trash install
+#                                Trash install
 ################################################################################
-ln -s -t $HOME/bin ./Trash/dr
-ln -s -t $HOME/bin ./Trash/cleanup.sh
+ln -s -t $HOME/bin `pwd`/Trash/dr
+ln -s -t $HOME/bin `pwd`/Trash/cleanup.sh
 
 ################################################################################
-                                Fixvnc install
+#                                Fixvnc install
 ################################################################################
-ln -s -t $HOME/bin ./Fixvnc/fixvnc
+ln -s -t $HOME/bin `pwd`/Fixvnc/fixvnc
 
 ################################################################################
-                                Watcher install
+#                                Watcher install
 ################################################################################
-ln -s -t $HOME/bin ./Watcher/watcher.sh
+ln -s -t $HOME/bin `pwd`/Watcher/watcher.sh
+
+################################################################################
+#                                PhoneHome install
+################################################################################
+ln -s -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
