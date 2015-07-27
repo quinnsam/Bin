@@ -37,6 +37,6 @@ fi
 #                                PhoneHome install
 ################################################################################
 echo "Installing Phonehome"
-if [ "$HOST" == "Alpha" ]; then
+if [ "$HOST" = "Alpha" ]; then
     ln -s -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
 fi
