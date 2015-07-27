@@ -20,6 +20,7 @@ ln -s -t $HOME/bin `pwd`/Trash/cleanup.sh
 echo "Installing Fixvnc"
 echo "#!/usr/bin/zsh" > $HOME/bin/fixvnc
 echo "sudo x11vnc -norc -localhost -forever -shared -rfbauth /etc/init/x11vnc.pass -autoport 5900 -avahi -env X11VNC_AVAHI_NAME='$HOST' -desktop '$HOST Remote Desktop' -repeat -bg -o /var/log/x11vnc.log" >> $HOME/bin/fixvnc
+chmod +x $HOME/bin/fixvnc
 
 ###############################################################################
 #                                Watcher install
