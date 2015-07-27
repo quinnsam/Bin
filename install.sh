@@ -18,9 +18,9 @@ ln -s -t $HOME/bin `pwd`/Trash/cleanup.sh
 #                                Fixvnc install
 ################################################################################
 echo "Installing Fixvnc"
-ln -s -t $HOME/bin `pwd`/Fixvnc/fixvnc
+echo '#!/usr/bin/zsh \n sudo x11vnc -norc -localhost -forever -shared -rfbauth /etc/init/x11vnc.pass -autoport 5900 -avahi -env X11VNC_AVAHI_NAME="$HOST" -desktop "$HOST Remote Desktop" -repeat -bg -o /var/log/x11vnc.log' > $HOME/bin/fixvnc
 
-################################################################################
+###############################################################################
 #                                Watcher install
 ################################################################################
 echo "Installing Watcher"
@@ -36,4 +36,6 @@ fi
 #                                PhoneHome install
 ################################################################################
 echo "Installing Phonehome"
-ln -s -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
+if [ "$HOST" == "Alpha" ]
+    ln -s -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
+fi
