@@ -6,6 +6,7 @@ tail -fn0 /var/log/auth.log | \
         then
             echo "$print_connected" | pb
             echo "$print_connected" >> /home/squinn/logs/SSH_connections.log
+            sleep 10
 
         fi
     done
