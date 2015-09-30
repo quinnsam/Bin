@@ -1,0 +1,27 @@
+#!/bin/bash
+
+usage="-zsh SERVER USER PASSWORD [PORT]"
+
+case  in
+    -*|"") printf "USAGE: %s\n" ""; exit ;;
+esac
+
+host=mail.example.com
+user=poppy
+passwd=pop3test
+port=110
+
+CR=$'\r'                            ## carriage return; for removal of
+exec 3<>/dev/tcp//        ## connect to POP3 server, port 110
+read ok line <&3                    ## get response from server
+[ "" != "+OK" ] && exit 5  ## check that it succeeded
+echo user "" >&3               ## send user name
+read ok line <&3                    ## get response
+[ "" != "+OK" ] && exit 5  ## check that it succeeded
+echo pass "" >&3             ## send password
+read ok line <&3                    ## get response
+[ "" != "+OK" ] && exit 5  ## check that it succeeded
+echo stat >&3                       ## request number of messages
+read ok num x <&3                   ## get response
+echo Messages:                  ## display number of messages
+echo quit >&3                       ## close connection

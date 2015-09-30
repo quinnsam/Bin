@@ -11,8 +11,8 @@ fi
 #                                Trash install
 ################################################################################
 echo "Installing Trash [dr]"
-ln -s -t $HOME/bin `pwd`/Trash/dr
-ln -s -t $HOME/bin `pwd`/Trash/cleanup.sh
+ln -fs -t $HOME/bin `pwd`/Trash/dr
+ln -fs -t $HOME/bin `pwd`/Trash/cleanup.sh
 
 ################################################################################
 #                                Fixvnc install
@@ -26,12 +26,12 @@ chmod +x $HOME/bin/fixvnc
 #                                Watcher install
 ################################################################################
 echo "Installing Watcher"
-ln -s -t $HOME/bin `pwd`/Watcher/watcher.sh
+ln -fs -t $HOME/bin `pwd`/Watcher/watcher.sh
 
 cat /etc/crontab | grep watcher.sh > /dev/null 2> $HOME/logs/Bin_install.log
-if [ $? ]; then
+if [ $? -eq 1 ]; then
     echo "installing Watcher in crontab"
-    sudo echo "*/5 * * * * root $PWD/Watcher/watcher.sh 2> $UHOME/logs/Watcher.log" >> /etc/crontab
+    echo 'Please run to finish intsall: sudo -u root echo "*/5 * * * * root $PWD/Watcher/watcher.sh 2> $UHOME/logs/Watcher.log" >> /etc/crontab'
 fi 
 
 ################################################################################
@@ -39,5 +39,5 @@ fi
 ################################################################################
 echo "Installing Phonehome"
 if [ "$HOST" = "Alpha" ]; then
-    ln -s -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
+    ln -fs -t $HOME/bin `pwd`/PhoneHome/PhoneHome.sh
 fi

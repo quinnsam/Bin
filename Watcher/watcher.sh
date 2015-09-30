@@ -18,16 +18,16 @@ start_watcher() {
     done
 }
 
-# Check if autodoor is running or not
+# Check if watcher is running or not
 if [ -f "$RUN" ]
 then
     ps -p `cat $RUN` > /dev/null 2>&1
     if [ $? == 1 ]
     then
-		start_auto
+		start_watcher
     fi
 else
-	start_auto
+	start_watcher
 fi
 
 
