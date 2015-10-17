@@ -1,39 +1,14 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
-# Location of the run/pid folder
-RUN='/var/run/Watcher.pid'
-
-# Kills any tmux 0 session and starts the Autodoor program in tmux 0
-start_watcher() {
-    echo $$ > $RUN
-	tail -fn0 /var/log/auth.log | \
-    while read line ; do
-        print_connected=$(echo "$line" | grep "Accepted")
-        if [ $? = 0 ]
+if [ "$PAM_TYPE" = "open_session" ]; then
+    #`tail /var/log/auth.log` | pb
+    if [ -e /home/squinn/.trusted_ips ];then
+        if grep -Fxq "$PAM_RHOST" /home/squinn/.trusted_ips
         then
-            echo "$print_connected" | pb
-            echo "$print_connected" >> /home/squinn/logs/SSH_connections.log
-            sleep 10
+            return 0
         fi
-    done
-}
-
-# Check if watcher is running or not
-if [ -f "$RUN" ]
-then
-    ps -p `cat $RUN` > /dev/null 2>&1
-    if [ $? == 1 ]
-    then
-		start_watcher
     fi
-else
-	start_watcher
+    echo "User $PAM_USER just logged in from $PAM_RHOST" | pb > /dev/null
 fi
 
-
-
-
-
-
-
-
+return 0
