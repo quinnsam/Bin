@@ -1,0 +1,10 @@
+[Unit]
+Description=Phonehome unit
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/home/squinn/Documents/Projects/Bin/PhoneHome/PhoneHome.sh
+
+[Install]
+WantedBy=multi-user.target
